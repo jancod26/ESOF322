@@ -1,0 +1,273 @@
+    //Marielle Korringa and Janet Madrid
+    //ESOF 322 HW #3
+    //Binary Tree class for Linked list
+public class BSTDriver {
+
+    /**
+     * @param args the command line arguments
+     */
+
+    public static void main(String[] args) {
+        // TODO code application logic here
+        
+        BinaryTree bt= new BinaryTree();
+        
+        bt.insert(5);
+        bt.insert(10);
+        bt.insert(3);
+        bt.insert(8);
+        
+        //print ino order
+        bt.inOrder();
+        // search for 10 which should be found
+        bt.search(10);
+        //search for 4 which should not
+        bt.search(4);
+        //delete a number from binary tree
+        bt.delete(3);
+        
+        //prin tin order again 
+        bt.inOrder();
+    }
+    
+}
+
+
+
+//Marielle Korringa and Janet Madrid
+//ESOF 322 HW #3
+//Node class for Linked list
+public class Node {
+    public Node left;
+    public Node right;
+    public int num;
+    
+    
+    public Node(int data){
+        num = data;
+        left = null;
+        right = null;
+        
+    }
+}
+
+
+
+
+//Marielle Korringa and Janet Madrid
+//ESOF 322 HW #3
+//Binary Tree class for Linked list
+public class BinaryTree {
+   private Node root;
+    
+    public BinaryTree(){
+        root = null;
+    }
+    
+    //inserts number by calling another function recursively
+    public void insert(int data){
+   
+      root = rec(root, data);
+     
+    }
+     // recursively finds thr place where to insert number. left smaller than node, right larger than node
+    public Node rec(Node cur, int data){
+        
+       if(cur == null){    
+         cur = new Node(data);
+       } else{
+           if(data < cur.num){
+              cur.left = rec(cur.left, data);
+           }else if(data > cur.num){
+              cur.right = rec(cur.right, data);
+           }
+    }
+       return cur;  
+}
+    //calls recursive function to search for number
+    public void search(int val){
+        search(root, val);
+    }
+    //recursively calls itself until it finds number and prints found or not found if no number
+    public void search(Node cur, int data){
+        if( cur.num == data){
+            System.out.println("Found");
+        } else if(data < cur.num && cur.left!=null){
+            search(cur.left,data);
+        } else if(data > cur.num & cur.right != null){
+            search(cur.right, data);
+        }
+        
+        else{
+            System.out.println("Number not found");
+        }
+    }
+   //calls a recursive function 
+    public void delete(int data){
+       root = delete(root, data);
+    }
+    
+    //recursively calls itself until it finds node to delete
+    //reorders binary tree
+    public Node delete(Node cur, int data){
+        if(cur == null){
+            return cur;
+        }
+        if(data < cur.num){
+            cur.left = delete(cur.left, data);
+        }else if( data > cur.num){
+            cur.right = delete(cur, data);
+        }
+        
+        else{
+            if(cur.left == null){
+                return cur.right;
+            }
+            else if (cur.right == null){
+                return cur.left;
+            }
+            
+            while(cur.left!=null){
+                cur.num = cur.left.num;
+                cur = cur.left;
+            }
+                    
+             cur.right = delete(cur.right, cur.num);
+        }
+        return cur;
+        
+    }
+    
+    //calls recursive function to perform preorder
+    public void preOrder(){
+        preOrder(root);
+    }
+    //prints in  preorder
+    public void preOrder(Node cur){
+        if( cur == null){
+            return;
+        }else {
+            System.out.println(cur.num);
+            inOrder(cur.left);
+            inOrder(cur.right);
+        }
+    }
+    //calls recursive function to perform inorder
+    public void inOrder(){
+        inOrder(root);
+    }
+    
+    //prints inorder
+    public void inOrder(Node cur){
+        if( cur == null){
+            return;
+        }else {
+            inOrder(cur.left);
+            System.out.println(cur.num);
+            inOrder(cur.right);
+        }
+            
+        
+    }
+    
+    //calls recursive function to perform postorder
+    public void postorder(){
+        postOrder(root);
+    }
+    
+    //prints postorder
+    public void postOrder(Node cur){
+          if( cur == null){
+            return;
+        }else {
+            inOrder(cur.left);
+            inOrder(cur.right);
+            System.out.println(cur.num);
+        }
+    }
+    
+}
+
+
+
+//Marielle Korringa and Janet Madrid
+//ESOF 322 HW #3
+//Driver class for Linked list
+public class LLDriver {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // acess all functionality from linked list
+        LinkedList list = new LinkedList();
+        list.add("james", "weber", "614-67-8990", 65000);
+        list.add("joe", "Doe", "613-66-1990", 69000);
+        list.add("axel", "alan", "235-55-9645", 63000);
+        list.add("alan", "campbell", "235-55-0000", 63000);
+        list.display();
+        System.out.println();
+        list.search("613-66-1990"); // search by SSN 
+        System.out.println();
+        list.delete("235-55-9645"); // delete by ssn 
+        list.display();
+    }
+    
+}
+
+
+
+
+//Marielle Korringa and Janet Madrid
+//ESOF 322 HW #3
+//Driver class for Linked list
+public class LLDriver {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // acess all functionality from linked list
+        LinkedList list = new LinkedList();
+        list.add("james", "weber", "614-67-8990", 65000);
+        list.add("joe", "Doe", "613-66-1990", 69000);
+        list.add("axel", "alan", "235-55-9645", 63000);
+        list.add("alan", "campbell", "235-55-0000", 63000);
+        list.display();
+        System.out.println();
+        list.search("613-66-1990"); // search by SSN 
+        System.out.println();
+        list.delete("235-55-9645"); // delete by ssn 
+        list.display();
+    }
+    
+}
+
+
+
+//Marielle Korringa and Janet Madrid
+//ESOF 322 HW #3
+//Node class for Linked list
+
+public class Node {
+    //Variables of Node 
+    Node next;
+    public String fName;
+    public String lName;
+    public String ssn;
+    public double salary;
+    
+    
+    // constructor for Node class
+    public Node(String fn, String ln, String ss, double sal){
+       fName = fn;
+       lName = ln; 
+       ssn = ss;
+       salary = sal;
+       next = null;
+    }
+    
+
+    
+    
+}
